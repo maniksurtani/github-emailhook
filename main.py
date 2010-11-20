@@ -27,7 +27,7 @@ class MainHandler(webapp.RequestHandler):
         committers = {}
         for c in payload['commits']:
             committers[c['author']['email']] = c['author']['name']
-	logging.debug("Received a push from %s for commits by " % (pusher, committers))
+	logging.debug("Received a push from %s for commits by " % (str(pusher), str(committers)))
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler)],
