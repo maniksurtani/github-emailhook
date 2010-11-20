@@ -7,9 +7,9 @@ from django.utils import simplejson as json
 from google.appengine.api import mail
 
 ### Add your list of permitted repositories shere
-ALLOWED_REPOS = ['https://github.com/me/my_dummy_repo'] 
+ALLOWED_REPOS = ['https://github.com/maniksurtani/github-emailhook', 'https://github.com/maniksurtani/githelpers', 'https://github.com/infinispan/infinispan'] 
 ### Add your sender email.  Remember, senders need to be admins on your AppEngine account.
-EMAIL_FROM="Me <me@mycorp.com>"
+EMAIL_FROM="GitHub Email Hook <github@infinispan.org>"
 
 class Committer(object):
   def __init__(self, name, email, commit, msg, url):
