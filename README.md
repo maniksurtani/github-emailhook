@@ -9,6 +9,6 @@ The script simply emails the author(s) of a push who are not also the pusher, in
  # Clone this project.
  # Edit ``main.py`` and edit the values of ``ALLOWED_REPOS`` and ``EMAIL_FROM`` right at the start of the file.
  # Deploy to Google AppEngine for Python
- # Configure your GitHub repository to call your AppEngine app
-
-
+ # Configure your GitHub repository to call your AppEngine app (Browse to your repo and select Admin -> Service Hooks -> Post-Receive URLs)
+ 
+ That's it!
