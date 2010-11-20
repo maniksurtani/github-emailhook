@@ -22,8 +22,12 @@ from django.utils import simplejson as json
 class MainHandler(webapp.RequestHandler):
     def post(self):
         payload_j = self.request.POST['payload']
-        payload = json.dumps(payload_j)
-	logging.debug("Received payload %s" % payload)
+        payload = json.loads(payload_j)
+        pusher = payload['pusher']
+        committers = {}
+        for c in payload['commits']:
+            committers[c['author']['email']] = c['author']['name']
+	logging.debug("Received a push from %s for commits by " % (pusher, committers))
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler)],
