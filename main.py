@@ -51,7 +51,7 @@ def notify_committers(payload):
         else:
           committers_to_notify[committer_email] = Committer(c['author']['name'], committer_email, c["id"], c["message"], c["url"])
     
-    for committer in committers_to_notify:
+    for committer in committers_to_notify.values():
       committer.send_email()
   else:
     logging.warn("Received a request for repository %s which is not on the whitelist" % payload['repository']['url'])
