@@ -27,6 +27,8 @@ class Committer(object):
 
     The following commits of yours have been pulled into %s by %s.
 
+    Commits
+    -------
     %s
 
     -- The GitHub EmailHook
@@ -52,7 +54,7 @@ def notify_committers(payload):
           committers_to_notify[committer_email].add_commit(c["id"], c["message"], c["url"])
         else:
           committers_to_notify[committer_email] = Committer(c['author']['name'], committer_email, c["id"], c["message"], c["url"])
-    
+    logging.info("Found %s committers to notify" % len(committers_to_notify))
     for committer in committers_to_notify.values():
       committer.send_email(payload)
   else:
