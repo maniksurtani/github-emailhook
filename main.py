@@ -7,9 +7,9 @@ from django.utils import simplejson as json
 from google.appengine.api import mail
 
 ### Add your list of permitted repositories shere
-ALLOWED_REPOS = ['https://github.com/maniksurtani/github-emailhook', 'https://github.com/maniksurtani/githelpers', 'https://github.com/infinispan/infinispan'] 
+ALLOWED_REPOS = ['https://github.com/USER1/PROJECT1', 'https://github.com/USER2/PROJECT2'] 
 ### Add your sender email.  Remember, senders need to be admins on your AppEngine account.
-EMAIL_FROM="GitHub Email Hook <github@infinispan.org>"
+EMAIL_FROM="Me <me@company.com>"
 
 class Committer(object):
   def __init__(self, name, email, commit, msg, url):
@@ -43,7 +43,7 @@ class Committer(object):
       s += "%s (%s): %s\n" % (c[0][:7], c[2], c[1])    
     return s
 
-def notify_committers(self, payload):
+def notify_committers(payload):
   # First check if this is in the list of watched repositories!
   if payload['repository']['url'] in ALLOWED_REPOS:
     committers_to_notify = {}
@@ -58,14 +58,14 @@ def notify_committers(self, payload):
     for committer in committers_to_notify:
       committer.send_email()
   else:
-    logging.warn("Received a request for repository %s which is not on the whitelist" % payload['url'])
-    mail.send_mail_to_admins(EMAIL_FROM, "Unrecognized repository %s", "Unrecognized repository %s.  JSON payload submitted: %s" % (payload['repository']['url'], payload['repository']['url'], payload))
+    logging.warn("Received a request for repository %s which is not on the whitelist" % payload['repository']['url'])
+    mail.send_mail_to_admins(EMAIL_FROM, "Unrecognized repository %s" % payload['repository']['url'], "Unrecognized repository %s.  JSON payload submitted: %s" % (payload['repository']['url'], payload))
 
 class MainHandler(webapp.RequestHandler):    
   def post(self):
     payload_json = self.request.POST['payload']
     payload = json.loads(payload_json)
-    notify_committers(committers, pusher, payload)
+    notify_committers(payload)
 
 def main():
   application = webapp.WSGIApplication([('/', MainHandler)], debug=False)
