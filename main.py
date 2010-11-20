@@ -5,11 +5,7 @@ from google.appengine.ext.webapp import util
 import logging
 from django.utils import simplejson as json
 from google.appengine.api import mail
-
-### Add your list of permitted repositories shere
-ALLOWED_REPOS = ['https://github.com/USER1/PROJECT1', 'https://github.com/USER2/PROJECT2'] 
-### Add your sender email.  Remember, senders need to be admins on your AppEngine account.
-EMAIL_FROM="Me <me@company.com>"
+from config import *
 
 class Committer(object):
   def __init__(self, name, email, commit, msg, url):
