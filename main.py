@@ -30,7 +30,7 @@ class Committer(object):
     %s
 
     -- The GitHub EmailHook
-   	    ''' % (self.name, payload['repository']['name'], payload['pusher']['name'], self.print_commits())
+   	    ''' % (self.name, payload['repository']['name'], payload['pusher']['name'], self.list_commits())
     mail.send_mail(EMAIL_FROM, "%s <%s>" % (self.name, self.email), subj, body)
   
   def list_commits(self):
