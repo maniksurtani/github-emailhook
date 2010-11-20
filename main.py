@@ -52,7 +52,7 @@ def notify_committers(payload):
           committers_to_notify[committer_email] = Committer(c['author']['name'], committer_email, c["id"], c["message"], c["url"])
     
     for committer in committers_to_notify.values():
-      committer.send_email()
+      committer.send_email(payload)
   else:
     logging.warn("Received a request for repository %s which is not on the whitelist" % payload['repository']['url'])
     mail.send_mail_to_admins(EMAIL_FROM, "Unrecognized repository %s" % payload['repository']['url'], "Unrecognized repository %s.  JSON payload submitted: %s" % (payload['repository']['url'], payload))
