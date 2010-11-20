@@ -1,19 +1,5 @@
 #!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 import logging
@@ -21,9 +7,9 @@ from django.utils import simplejson as json
 from google.appengine.api import mail
 
 ### Add your list of permitted repositories shere
-ALLOWED_REPOS = [] 
+ALLOWED_REPOS = ['https://github.com/me/my_dummy_repo'] 
 ### Add your sender email.  Remember, senders need to be admins on your AppEngine account.
-EMAIL_FROM=""
+EMAIL_FROM="Me <me@mycorp.com>"
 
 class Committer(object):
   def __init__(self, name, email, commit, msg, url):
@@ -79,7 +65,7 @@ class MainHandler(webapp.RequestHandler):
   def post(self):
     payload_json = self.request.POST['payload']
     payload = json.loads(payload_json)
-    notify_committers(committers, pusher, payload):
+    notify_committers(committers, pusher, payload)
 
 def main():
   application = webapp.WSGIApplication([('/', MainHandler)], debug=False)
