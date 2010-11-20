@@ -40,7 +40,7 @@ class Committer(object):
   def list_commits(self):
     s = ""
     for c in self.commits:
-      s += "%s (%s): %s\n" % (c[0][:7], c[2], c[1])    
+      s += "%s : %s : %s\n" % (c[0][:7], c[2], c[1])    
     return s
 
 def notify_committers(payload):
