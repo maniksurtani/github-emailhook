@@ -13,6 +13,14 @@ The script simply emails the author(s) of a push who are not also the pusher, in
  
 That's it!
 
+# TODO
+
+ * Create a formal set of TODOs!
+ * Extract email contents into customisable templates
+ * HTML + plaintext emails
+ * Extract email subject to config file
+ * Queue emails in a task queue and batch-deliver to ensure http request doesn't time out 
+
 # License
 
 These scripts are open source and released under the BSD License.  See the accompanying LICENSE.txt file for details.
