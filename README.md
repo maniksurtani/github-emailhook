@@ -13,4 +13,6 @@ The script simply emails the author(s) of a push who are not also the pusher, in
  
 That's it!
 
+# License
 
+These scripts are open source and released under the BSD License.  See the accompanying LICENSE.txt file for details.
