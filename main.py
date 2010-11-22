@@ -45,7 +45,7 @@ class Committer(object):
 
 def notify_committers(payload):
   # First check if this is in the list of watched repositories!
-  if payload['repository']['url'] in ALLOWED_REPOS:
+  if payload['repository']['url'] in ALLOWED_REPOS or payload['repository']['organization'] in ALLOWED_ORGS:
     committers_to_notify = {}
     for c in payload['commits']:
       committer_email = c['author']['email']
