@@ -22,17 +22,21 @@ class Committer(object):
     else:
       subj = "%s of your commits were merged into %s!" % (len(self.commits), payload['repository']['name'])
     logging.debug("Generated email subject [%s]" % subj)  
+    if 'pusher' in payload:
+      push_string = "%s by %s" % (payload['repository']['name'], payload['pusher']['name'])
+    else:
+      push_string = "%s" % payload['repository']['name']
     body = '''
     Greetings, %s!
 
-    The following commits of yours have been pulled into %s by %s.
+    The following commits of yours have been pulled into %s.
 
     Commits
     -------
     %s
 
     -- The GitHub EmailHook
-   	    ''' % (self.name, payload['repository']['name'], payload['pusher']['name'], self.list_commits())
+   	    ''' % (self.name, push_string, self.list_commits())
    	    
     logging.debug("About to email %s <%s> with info on %s commits (%s)" % (self.name, self.email, len(self.commits), self.list_commits()))
     mail.send_mail(EMAIL_FROM, "%s <%s>" % (self.name, self.email), subj, body)
@@ -47,9 +51,13 @@ def notify_committers(payload):
   # First check if this is in the list of watched repositories!
   if payload['repository']['url'] in ALLOWED_REPOS or payload['repository']['organization'] in ALLOWED_ORGS:
     committers_to_notify = {}
+    if 'pusher' in payload:
+      pusher_email = payload['pusher']['email']
+    else:
+      pusher_email = ''
     for c in payload['commits']:
       committer_email = c['author']['email']
-      if committer_email != payload['pusher']['email']:
+      if committer_email != pusher_email:
         if committer_email in committers_to_notify:
           committers_to_notify[committer_email].add_commit(c["id"], c["message"], c["url"])
         else:
