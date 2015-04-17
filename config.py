@@ -5,4 +5,4 @@ ALLOWED_ORGS = ['ORG1', 'ORG2']
 ### Add your sender email.  Remember, senders need to be admins on your AppEngine account.
 EMAIL_FROM = "Me <me@company.com>"
 ## Robots. Ignore commits by robots.
-ROBOTS = ["release@infinispan.org"]
+ROBOTS = ["robot@company.com"]
