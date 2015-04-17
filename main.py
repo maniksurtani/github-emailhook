@@ -55,6 +55,9 @@ def notify_committers(payload):
       pusher_email = payload['pusher']['email']
     else:
       pusher_email = ''
+    if pusher_email in ROBOTS:
+      return
+
     for c in payload['commits']:
       committer_email = c['author']['email']
       if committer_email != pusher_email:
